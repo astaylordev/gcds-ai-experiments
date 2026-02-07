@@ -3,18 +3,16 @@ import {
   GcdsHeader,
   GcdsContainer,
   GcdsHeading,
-  GcdsText,
   GcdsFooter,
 } from '@cdssnc/gcds-components-react'
+import TodoList from './components/TodoList'
 
 const content = {
   en: {
-    heading: 'Welcome to My App',
-    text: 'This is a skeleton React application using the Government of Canada Design System.',
+    heading: 'Todo Application',
   },
   fr: {
-    heading: 'Bienvenue dans mon application',
-    text: "Ceci est une application React squelette utilisant le Système de design du gouvernement du Canada.",
+    heading: 'Application de tâches',
   },
 }
 
@@ -43,8 +41,10 @@ function App() {
 
       <main id="main-content">
         <GcdsContainer size="xl" centered padding="400">
-          <GcdsHeading tag="h1">{content[lang].heading}</GcdsHeading>
-          <GcdsText>{content[lang].text}</GcdsText>
+          <GcdsHeading tag="h1" marginBottom="400">
+            {content[lang].heading}
+          </GcdsHeading>
+          <TodoList lang={lang} />
         </GcdsContainer>
       </main>
 

@@ -7,7 +7,8 @@
     },
     "ghcr.io/devcontainers/features/python:1": {
       "version": "3.12"
-    }
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
   "postCreateCommand": "npm install && python -m venv backend/.venv && backend/.venv/bin/pip install -r backend/requirements.txt",
   "forwardPorts": [5173, 8000],
@@ -18,7 +19,9 @@
   "customizations": {
     "vscode": {
       "extensions": [
+        "Anthropic.claude-code",
         "ms-python.python",
+        "ms-python.vscode-pylance",
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode"
       ]

@@ -102,7 +102,9 @@ export default function TodoList({ lang = 'en' }) {
       )}
 
       {todos.length === 0 ? (
-        <p>{content[lang].empty}</p>
+        <p style={{ textAlign: 'center', padding: '2rem', color: '#555', fontSize: '1.1rem', backgroundColor: '#f5f5f5', borderRadius: '4px' }}>
+          {content[lang].empty}
+        </p>
       ) : (
         <div
           style={{

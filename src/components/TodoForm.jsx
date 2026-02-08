@@ -36,11 +36,10 @@ export default function TodoForm({ onAdd, lang = 'en' }) {
   return (
     <form onSubmit={handleSubmit} style={{ marginBottom: '2rem' }}>
       <div>
-        <label htmlFor="todo-input" style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600' }}>
+        <label htmlFor="todo-input" style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', fontSize: '1.25rem' }}>
           {content[lang].label}
         </label>
-        <div style={{ display: 'flex', gap: '1rem' }}>
-          <div style={{ flex: 1 }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             <GcdsInput
               inputId="todo-input"
               name="todo"
@@ -49,8 +48,8 @@ export default function TodoForm({ onAdd, lang = 'en' }) {
               placeholder={content[lang].placeholder}
               required
               hideLabel
+              size="60"
             />
-          </div>
           <GcdsButton type="submit" disabled={isSubmitting || !title.trim()}>
             {content[lang].addButton}
           </GcdsButton>

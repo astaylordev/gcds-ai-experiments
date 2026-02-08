@@ -1,8 +1,11 @@
-from fastapi import FastAPI, HTTPException, status
+from fastapi import FastAPI, HTTPException, status, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from sqlalchemy.orm import Session
 
-from models import Todo, TodoCreate, TodoUpdate
+from models import Todo, TodoCreate, TodoUpdate, TodoModel
+from database import engine, Base, get_db
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
@@ -14,43 +17,46 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-todos: dict[int, Todo] = {}
-next_id = 1
-
 
 @app.get("/api/todos", response_model=list[Todo])
-def list_todos():
-    return list(todos.values())
+def list_todos(db: Session = Depends(get_db)):
+    return db.query(TodoModel).all()
 
 
 @app.post("/api/todos", response_model=Todo, status_code=status.HTTP_201_CREATED)
-def create_todo(body: TodoCreate):
-    global next_id
-    todo = Todo(id=next_id, title=body.title, completed=body.completed)
-    todos[next_id] = todo
-    next_id += 1
+def create_todo(body: TodoCreate, db: Session = Depends(get_db)):
+    todo = TodoModel(title=body.title, completed=body.completed)
+    db.add(todo)
+    db.commit()
+    db.refresh(todo)
     return todo
 
 
 @app.get("/api/todos/{todo_id}", response_model=Todo)
-def get_todo(todo_id: int):
-    if todo_id not in todos:
+def get_todo(todo_id: int, db: Session = Depends(get_db)):
+    todo = db.query(TodoModel).filter(TodoModel.id == todo_id).first()
+    if not todo:
         raise HTTPException(status_code=404, detail="Todo not found")
-    return todos[todo_id]
+    return todo
 
 
 @app.patch("/api/todos/{todo_id}", response_model=Todo)
-def update_todo(todo_id: int, body: TodoUpdate):
-    if todo_id not in todos:
+def update_todo(todo_id: int, body: TodoUpdate, db: Session = Depends(get_db)):
+    todo = db.query(TodoModel).filter(TodoModel.id == todo_id).first()
+    if not todo:
         raise HTTPException(status_code=404, detail="Todo not found")
-    existing = todos[todo_id]
-    updated = existing.model_copy(update=body.model_dump(exclude_unset=True))
-    todos[todo_id] = updated
-    return updated
+    updates = body.model_dump(exclude_unset=True)
+    for key, value in updates.items():
+        setattr(todo, key, value)
+    db.commit()
+    db.refresh(todo)
+    return todo
 
 
 @app.delete("/api/todos/{todo_id}", status_code=status.HTTP_204_NO_CONTENT)
-def delete_todo(todo_id: int):
-    if todo_id not in todos:
+def delete_todo(todo_id: int, db: Session = Depends(get_db)):
+    todo = db.query(TodoModel).filter(TodoModel.id == todo_id).first()
+    if not todo:
         raise HTTPException(status_code=404, detail="Todo not found")
-    del todos[todo_id]
+    db.delete(todo)
+    db.commit()

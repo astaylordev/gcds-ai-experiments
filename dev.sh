@@ -9,7 +9,7 @@ trap cleanup EXIT
 cd "$(dirname "$0")"
 
 # Install dependencies if needed
-if ! backend/.venv/bin/python -c "import uvicorn" &>/dev/null; then
+if ! backend/.venv/bin/python -c "import uvicorn; import sqlalchemy" &>/dev/null; then
   rm -rf backend/.venv
   python -m venv backend/.venv
   backend/.venv/bin/python -m pip install -r backend/requirements.txt

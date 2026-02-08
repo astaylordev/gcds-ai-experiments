@@ -6,6 +6,7 @@ import {
   GcdsFooter,
 } from '@cdssnc/gcds-components-react'
 import TodoList from './components/TodoList'
+import './App.css'
 
 const content = {
   en: {

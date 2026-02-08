@@ -34,12 +34,12 @@ export default function TodoForm({ onAdd, lang = 'en' }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: '2rem' }}>
+    <form onSubmit={handleSubmit} className="todo-form">
       <div>
-        <label htmlFor="todo-input" style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '600', fontSize: '1.25rem' }}>
+        <label htmlFor="todo-input" className="todo-form-label">
           {content[lang].label}
         </label>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+        <div className="todo-form-fields">
             <GcdsInput
               inputId="todo-input"
               name="todo"

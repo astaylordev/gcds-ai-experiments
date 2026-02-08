@@ -27,31 +27,18 @@ export default function TodoItem({ todo, onToggle, onDelete, lang = 'en' }) {
   }
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: '1rem',
-        borderBottom: '1px solid #ccc',
-        gap: '1rem',
-      }}
-    >
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flex: 1 }}>
+    <div className="todo-item">
+      <div className="todo-item-content">
         <input
           type="checkbox"
           id={`todo-${todo.id}`}
           checked={todo.completed}
           onChange={handleToggle}
-          style={{ width: '18px', height: '18px', cursor: 'pointer' }}
+          className="todo-item-checkbox"
         />
         <label
           htmlFor={`todo-${todo.id}`}
-          style={{
-            textDecoration: todo.completed ? 'line-through' : 'none',
-            color: todo.completed ? '#666' : '#000',
-            cursor: 'pointer',
-          }}
+          className={todo.completed ? 'todo-item-label-completed' : 'todo-item-label'}
         >
           {todo.title}
         </label>

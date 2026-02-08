@@ -85,33 +85,28 @@ export default function TodoList({ lang = 'en' }) {
   }
 
   if (error) {
-    return <p style={{ color: 'red' }}>{content[lang].error}</p>
+    return <p className="todo-list-error">{content[lang].error}</p>
   }
 
   return (
     <div>
-      <h2 style={{ marginBottom: '1.5rem' }}>{content[lang].title}</h2>
+      <h2 className="todo-list-title">{content[lang].title}</h2>
 
       <TodoForm onAdd={addTodo} lang={lang} />
 
       {todos.length > 0 && (
-        <p style={{ marginBottom: '1rem', fontSize: '0.9rem', color: '#666' }}>
+        <p className="todo-list-summary">
           {activeCount} {content[lang].active}, {completedCount}{' '}
           {content[lang].completed}
         </p>
       )}
 
       {todos.length === 0 ? (
-        <p style={{ textAlign: 'center', padding: '2rem', color: '#555', fontSize: '1.1rem', backgroundColor: '#f5f5f5', borderRadius: '4px' }}>
+        <p className="todo-list-empty">
           {content[lang].empty}
         </p>
       ) : (
-        <div
-          style={{
-            border: '1px solid #ccc',
-            borderRadius: '4px',
-          }}
-        >
+        <div className="todo-list-items">
           {todos.map((todo) => (
             <TodoItem
               key={todo.id}

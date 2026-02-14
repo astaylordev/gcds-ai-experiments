@@ -65,6 +65,37 @@ npm run build
 npm run preview
 ```
 
+## End-to-End Tests
+
+E2E tests use [Playwright](https://playwright.dev/) and live in the `e2e/` directory.
+
+### Install browsers (first time only)
+
+```bash
+npx playwright install --with-deps
+```
+
+### Run the tests
+
+```bash
+npm run test:e2e
+```
+
+This automatically starts the dev server (`dev.sh`) before running the tests. If the dev server is already running, it will reuse it.
+
+### Useful options
+
+```bash
+# Run in headed mode (see the browser)
+npx playwright test --headed
+
+# Run a specific test file
+npx playwright test e2e/todo-crud.spec.js
+
+# View the HTML test report
+npx playwright show-report
+```
+
 ## TODO API Endpoints
 
 The FastAPI backend provides the following endpoints:

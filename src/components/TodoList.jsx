@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { GcdsAlert } from '@cdssnc/gcds-components-react'
+import { GcdsAlert, GcdsNotice } from '@cdssnc/gcds-components-react'
 import TodoItem from './TodoItem'
 import TodoForm from './TodoForm'
 
@@ -82,7 +82,11 @@ export default function TodoList({ lang = 'en' }) {
   const activeCount = todos.length - completedCount
 
   if (loading) {
-    return <p>{content[lang].loading}</p>
+    return (
+      <GcdsNotice type="info" noticeTitle={content[lang].loading} noticeTitleTag="h3">
+        <gcds-text>{content[lang].loading}</gcds-text>
+      </GcdsNotice>
+    )
   }
 
   if (error) {

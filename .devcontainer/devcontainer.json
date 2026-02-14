@@ -10,7 +10,7 @@
     },
     "ghcr.io/devcontainers/features/docker-in-docker:2": {}
   },
-  "postCreateCommand": "npm install && python -m venv backend/.venv && backend/.venv/bin/pip install -r backend/requirements.txt",
+  "postCreateCommand": "npm install && npx playwright install --with-deps chromium && python -m venv backend/.venv && backend/.venv/bin/pip install -r backend/requirements.txt",
   "forwardPorts": [5173, 8000],
   "portsAttributes": {
     "5173": { "label": "Vite Dev Server" },

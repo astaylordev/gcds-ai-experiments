@@ -111,9 +111,9 @@ export default function TodoList({ lang = 'en' }) {
       )}
 
       {todos.length === 0 ? (
-        <p className="todo-list-empty">
-          {content[lang].empty}
-        </p>
+        <GcdsNotice type="info" noticeTitle={content[lang].empty} noticeTitleTag="h3">
+          <gcds-text>{content[lang].empty}</gcds-text>
+        </GcdsNotice>
       ) : (
         <div className="todo-list-items">
           {todos.map((todo) => (

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { GcdsAlert } from '@cdssnc/gcds-components-react'
 import TodoItem from './TodoItem'
 import TodoForm from './TodoForm'
 
@@ -85,7 +86,11 @@ export default function TodoList({ lang = 'en' }) {
   }
 
   if (error) {
-    return <p className="todo-list-error">{content[lang].error}</p>
+    return (
+      <GcdsAlert alertRole="danger" heading={content[lang].error} hideCloseBtn>
+        {error}
+      </GcdsAlert>
+    )
   }
 
   return (
